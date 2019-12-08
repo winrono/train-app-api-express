@@ -5,7 +5,6 @@ export async function initDatabase() {
     return new Promise((resolve, reject) => {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
         client.connect((err: any) => {
-            const collection = client.db("test").collection("devices");
             resolve(client);
         });
     });

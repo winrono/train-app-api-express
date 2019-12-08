@@ -1,19 +1,26 @@
 import express from 'express';
 import authRoute from './routes/auth';
+import dataRoute from './routes/data';
 import { initDatabase } from './db';
 
 
 const app = express();
 const port = 8081;
 
-app.listen(port, async () => {
-    console.log(`Example app listening on port ${port}!`);
+
+async function bootstrap() {
+
     let client: any = await initDatabase();
-    const db = client.db('video');
-    const movies = db.collection('movieDetails');
-    console.log(client);
-});
 
+    app.listen(port, async () => {
+        console.log(`Example app listening on port ${port}!`);
+        const db: any = client.db('video');
+        app.locals.db = db;
+    });
 
+    app.use('/auth', authRoute);
 
-app.use('/auth', authRoute);
+    app.use('/data', dataRoute);
+}
+
+bootstrap();
