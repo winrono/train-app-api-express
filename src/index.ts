@@ -4,7 +4,7 @@ import { initDatabase } from './db';
 
 
 const app = express();
-const port = 3000;
+const port = 8081;
 
 app.listen(port, async () => {
     console.log(`Example app listening on port ${port}!`);
