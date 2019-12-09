@@ -1,10 +1,12 @@
 import express from 'express';
 import authRoute from './routes/auth';
-import dataRoute from './routes/data';
+import workoutRoute from './routes/workout';
 import { initDatabase } from './db';
 
 
 const app = express();
+
+app.use(express.json());
 const port = 8081;
 
 
@@ -14,13 +16,13 @@ async function bootstrap() {
 
     app.listen(port, async () => {
         console.log(`Example app listening on port ${port}!`);
-        const db: any = client.db('video');
+        const db: any = client.db('workoutAppDB');
         app.locals.db = db;
     });
 
     app.use('/auth', authRoute);
 
-    app.use('/data', dataRoute);
+    app.use('/workouts', workoutRoute);
 }
 
 bootstrap();
